@@ -5,12 +5,9 @@ interface RenderPageNumbersProps {
   pageNumbersToDisplay: number;
 }
 
-export const renderPageNumbers = ({
-  currentPage,
-  totalPages,
-  handlePageChange,
-  pageNumbersToDisplay,
-}: RenderPageNumbersProps) => {
+export const renderPageNumbers = (props: RenderPageNumbersProps) => {
+  const { currentPage, totalPages, handlePageChange, pageNumbersToDisplay } =
+    props;
   const startPage = Math.max(
     1,
     Math.min(

@@ -12,15 +12,19 @@ interface CountryTableProps {
   isValid: boolean;
 }
 
-const CountryTable: React.FC<CountryTableProps> = ({
-  title,
-  country,
-  editableFields,
-  handleInputChange,
-  handleSave,
-  errors,
-  isValid,
-}: CountryTableProps) => {
+const CountryTable: React.FC<CountryTableProps> = (
+  props: CountryTableProps
+) => {
+  const {
+    title,
+    country,
+    editableFields,
+    handleInputChange,
+    handleSave,
+    errors,
+    isValid,
+  } = props;
+
   const TH_HEADERS = (
     <tr>
       <th>Name</th>

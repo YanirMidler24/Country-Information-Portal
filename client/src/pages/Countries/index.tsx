@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import useCountries from "../../hooks/useCountries";
-import { COUNTRIES_TABLE_TITLE } from "../../common/constants";
+import {
+  COUNTRIES_TABLE_TITLE,
+  ITEMS_PER_PAGE,
+  PAGE_NUMBERS_TO_DISPLAY,
+} from "../../common/constants";
 import CountriesTable from "../../components/CountriesTable/CountriesTable";
 import Spinner from "../../components/Spinner/Spinner";
 import "./Countries.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ICountry } from "../../common/interface/interface";
 import { renderPageNumbers } from "../../common/utils/pagination.utils";
-
-const ITEMS_PER_PAGE = 10; // Number of items per page
-const PAGE_NUMBERS_TO_DISPLAY = 10; // Number of page numbers to display at a time
 
 const Countries: React.FC = () => {
   const { countries, isLoading, error } = useCountries();
