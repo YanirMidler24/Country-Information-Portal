@@ -2,7 +2,7 @@
 
 git clone https://github.com/YanirMidler24/Country-Information-Portal
 
-cd to the main dir
+cd to the root dir
 
 $ cd ./Country-Information-Portal
 
