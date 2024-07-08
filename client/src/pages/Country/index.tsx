@@ -1,149 +1,84 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import useCountries from "../../hooks/useCountries";
-import { COUNTRIES_TABLE_TITLE } from "../../common/constants";
-import CountriesTable from "../../components/CountriesTable/CountryTable";
+import React, { useState, useEffect } from "react";
+import { COUNTRY_TABLE_TITLE } from "../../common/constants";
+import CountryTable from "../../components/CountryTable/CountryTable";
 import Spinner from "../../components/Spinner/Spinner";
-import "./Countries.css";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import "./Country.css";
+import useCountry from "../../hooks/useCountry";
+import { Link, useLocation } from "react-router-dom";
+import { updateCountry } from "../../api/countries/country.api";
 import { ICountry } from "../../common/interface/interface";
+import { validateInput } from "../../common/helper/helper";
 
-const ITEMS_PER_PAGE = 10; // Number of items per page
-const PAGE_NUMBERS_TO_DISPLAY = 10; // Number of page numbers to display at a time
+const Country: React.FC = () => {
+  const location = useLocation();
+  const id = location.state?.id;
+  const page = location.state?.page || 1;
+  const { country, isLoading, error } = useCountry(id);
 
-const Countries: React.FC = () => {
-  const { countries, isLoading, error } = useCountries();
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initialPage = parseInt(searchParams.get("page") || "1", 10);
-  const [currentPage, setCurrentPage] = useState<number>(initialPage);
+  const [errors, setErrors] = useState({ capital: "", population: "" });
+  const [isValid, setIsValid] = useState(true);
+  const [editableFields, setEditableFields] = useState<Partial<ICountry>>({});
 
   useEffect(() => {
-    setSearchParams({ page: currentPage.toString() });
-  }, [currentPage, setSearchParams]);
-
-  const handleDetailsClick = useCallback(
-    (country: ICountry) => {
-      navigate(`/country/${country.countryName}`, {
-        state: { id: country._id, page: currentPage },
+    if (country) {
+      setEditableFields({
+        capital: country.capital,
+        population: country.population,
       });
-    },
-    [navigate, currentPage]
-  );
-
-  const getPaginatedCountries = useCallback(
-    (page: number) => {
-      const start = (page - 1) * ITEMS_PER_PAGE;
-      const end = start + ITEMS_PER_PAGE;
-      return countries.slice(start, end);
-    },
-    [countries]
-  );
-
-  const totalPages = useMemo(
-    () => Math.ceil(countries.length / ITEMS_PER_PAGE),
-    [countries.length]
-  );
-
-  const handlePageChange = useCallback((page: number) => {
-    setCurrentPage(page);
-  }, []);
-
-  const renderPageNumbers = useCallback(() => {
-    const startPage = Math.max(
-      1,
-      Math.min(
-        currentPage - Math.floor(PAGE_NUMBERS_TO_DISPLAY / 2),
-        totalPages - PAGE_NUMBERS_TO_DISPLAY + 1
-      )
-    );
-    const endPage = Math.min(
-      totalPages,
-      startPage + PAGE_NUMBERS_TO_DISPLAY - 1
-    );
-
-    const pageNumbers = [];
-    if (startPage > 1) {
-      pageNumbers.push(
-        <button
-          key={1}
-          onClick={() => handlePageChange(1)}
-          disabled={currentPage === 1}
-        >
-          1
-        </button>
-      );
-      if (startPage > 2) {
-        pageNumbers.push(<span key="ellipsis-start">...</span>);
-      }
+      const valid =
+        validateInput("capital", country.capital)?.valid &&
+        validateInput("population", country.population)?.valid;
+      setIsValid(valid);
     }
+  }, [country]);
 
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          disabled={i === currentPage}
-        >
-          {i}
-        </button>
-      );
+  const handleSave = async () => {
+    try {
+      await updateCountry(id, editableFields);
+      alert("Country updated successfully!");
+    } catch (error) {
+      console.error("Failed to update country:", error);
+      alert("Failed to update country.");
     }
+  };
 
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        pageNumbers.push(<span key="ellipsis-end">...</span>);
-      }
-      pageNumbers.push(
-        <button
-          key={totalPages}
-          onClick={() => handlePageChange(totalPages)}
-          disabled={currentPage === totalPages}
-        >
-          {totalPages}
-        </button>
-      );
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const formattedValue = name === "population" ? Number(value) : value;
+    setEditableFields((prevFields) => ({
+      ...prevFields,
+      [name]: formattedValue,
+    }));
+    handleValidation(name, formattedValue);
+  };
 
-    return pageNumbers;
-  }, [currentPage, totalPages, handlePageChange]);
-
-  const paginatedCountries = useMemo(
-    () => getPaginatedCountries(currentPage),
-    [getPaginatedCountries, currentPage]
-  );
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    return <div className="error">{error}</div>;
-  }
+  const handleValidation = (name: string, value: string | number) => {
+    const { error, valid } = validateInput(name, value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+    setIsValid(valid);
+  };
 
   return (
-    <div>
-      <CountriesTable
-        title={COUNTRIES_TABLE_TITLE}
-        countries={paginatedCountries}
-        handleDetailsClick={handleDetailsClick}
-      />
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
-        {renderPageNumbers()}
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
-    </div>
+    <>
+      {isLoading && <Spinner />}
+      {error && <div className="error">{error}</div>}
+      {!isLoading && country && (
+        <CountryTable
+          title={COUNTRY_TABLE_TITLE}
+          country={country}
+          editableFields={editableFields}
+          handleInputChange={handleInputChange}
+          handleSave={handleSave}
+          errors={errors}
+          isValid={isValid}
+        />
+      )}
+      <Link to={`/?page=${page}`}>Back</Link>
+    </>
   );
 };
 
-export default Countries;
+export default Country;

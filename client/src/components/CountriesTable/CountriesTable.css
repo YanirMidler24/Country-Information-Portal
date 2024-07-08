@@ -1,27 +1,38 @@
-/* src/components/CountriesTable.css */
-
 .table-container {
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 .countries-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin-bottom: 20px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .countries-table th,
 .countries-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  padding: 15px;
   text-align: left;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .countries-table th {
-  background-color: #f2f2f2;
-  color: black;
+  background-color: #f8f8f8;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+}
+
+.countries-table tr:last-child td {
+  border-bottom: none;
 }
 
 .countries-table tr:nth-child(even) {
@@ -29,10 +40,21 @@
 }
 
 .countries-table tr:hover {
-  background-color: #ddd;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.countries-table td {
+  font-size: 14px;
+  color: #666;
 }
 
 @media (max-width: 600px) {
+  .countries-table {
+    box-shadow: none;
+    border-radius: 0;
+  }
+
   .countries-table thead {
     display: none;
   }
@@ -40,24 +62,31 @@
   .countries-table tr {
     display: block;
     margin-bottom: 20px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
   }
 
   .countries-table td {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     text-align: right;
-    border-bottom: 1px solid #ddd;
-    position: relative;
-    padding-left: 50%;
-    white-space: pre-wrap;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
   }
 
   .countries-table td::before {
     content: attr(data-label);
-    position: absolute;
-    left: 0;
-    width: 50%;
-    padding-left: 10px;
     font-weight: bold;
-    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+    color: #333;
+    margin-right: 10px;
+  }
+
+  .countries-table td:last-child {
+    border-bottom: none;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import useCountries from "../../hooks/useCountries";
 import { COUNTRIES_TABLE_TITLE } from "../../common/constants";
 import CountriesTable from "../../components/CountriesTable/CountryTable";
@@ -7,8 +7,8 @@ import "./Countries.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ICountry } from "../../common/interface/interface";
 
-const ITEMS_PER_PAGE = 10;
-const PAGE_NUMBERS_TO_DISPLAY = 10;
+const ITEMS_PER_PAGE = 10; // Number of items per page
+const PAGE_NUMBERS_TO_DISPLAY = 10; // Number of page numbers to display at a time
 
 const Countries: React.FC = () => {
   const { countries, isLoading, error } = useCountries();
@@ -30,19 +30,25 @@ const Countries: React.FC = () => {
     [navigate, currentPage]
   );
 
-  const getPaginatedCountries = (page: number) => {
-    const start = (page - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    return countries.slice(start, end);
-  };
+  const getPaginatedCountries = useCallback(
+    (page: number) => {
+      const start = (page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      return countries.slice(start, end);
+    },
+    [countries]
+  );
 
-  const totalPages = Math.ceil(countries.length / ITEMS_PER_PAGE);
+  const totalPages = useMemo(
+    () => Math.ceil(countries.length / ITEMS_PER_PAGE),
+    [countries.length]
+  );
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
 
-  const renderPageNumbers = () => {
+  const renderPageNumbers = useCallback(() => {
     const startPage = Math.max(
       1,
       Math.min(
@@ -99,7 +105,12 @@ const Countries: React.FC = () => {
     }
 
     return pageNumbers;
-  };
+  }, [currentPage, totalPages, handlePageChange]);
+
+  const paginatedCountries = useMemo(
+    () => getPaginatedCountries(currentPage),
+    [getPaginatedCountries, currentPage]
+  );
 
   if (isLoading) {
     return <Spinner />;
@@ -113,7 +124,7 @@ const Countries: React.FC = () => {
     <div>
       <CountriesTable
         title={COUNTRIES_TABLE_TITLE}
-        countries={getPaginatedCountries(currentPage)}
+        countries={paginatedCountries}
         handleDetailsClick={handleDetailsClick}
       />
       <div className="pagination">
