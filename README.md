@@ -6,7 +6,7 @@ cd ./server
 
 $ npm install
 
-## Running the app
+## Running the server
 
 Copy .env.example file to .env, fill all values that you need after
 
@@ -32,7 +32,7 @@ or if you get errors
 
 $ npm install --force
 
-## Running the app
+## Running the client
 
 Copy .env.example file to .env, fill all values that you need after
 
