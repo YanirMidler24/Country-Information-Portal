@@ -7,8 +7,8 @@ import "./Countries.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ICountry } from "../../common/interface/interface";
 
-const ITEMS_PER_PAGE = 10; // Number of items per page
-const PAGE_NUMBERS_TO_DISPLAY = 10; // Number of page numbers to display at a time
+const ITEMS_PER_PAGE = 10;
+const PAGE_NUMBERS_TO_DISPLAY = 10;
 
 const Countries: React.FC = () => {
   const { countries, isLoading, error } = useCountries();
@@ -56,6 +56,21 @@ const Countries: React.FC = () => {
     );
 
     const pageNumbers = [];
+    if (startPage > 1) {
+      pageNumbers.push(
+        <button
+          key={1}
+          onClick={() => handlePageChange(1)}
+          disabled={currentPage === 1}
+        >
+          1
+        </button>
+      );
+      if (startPage > 2) {
+        pageNumbers.push(<span key="ellipsis-start">...</span>);
+      }
+    }
+
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
         <button
@@ -64,6 +79,21 @@ const Countries: React.FC = () => {
           disabled={i === currentPage}
         >
           {i}
+        </button>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pageNumbers.push(<span key="ellipsis-end">...</span>);
+      }
+      pageNumbers.push(
+        <button
+          key={totalPages}
+          onClick={() => handlePageChange(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          {totalPages}
         </button>
       );
     }
