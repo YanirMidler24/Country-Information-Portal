@@ -1,0 +1,85 @@
+import React from "react";
+import { ICountry } from "../../common/interface/interface";
+import "./CountryTable.css";
+
+interface CountryTableProps {
+  country: ICountry;
+  title: string;
+  editableFields: Partial<ICountry>;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSave: () => void;
+  errors: { capital: string; population: string };
+  isValid: boolean;
+}
+
+const CountryTable: React.FC<CountryTableProps> = ({
+  title,
+  country,
+  editableFields,
+  handleInputChange,
+  handleSave,
+  errors,
+  isValid,
+}: CountryTableProps) => {
+  const TH_HEADERS = (
+    <tr>
+      <th>Name</th>
+      <th>Capital</th>
+      <th>Region</th>
+      <th>Sub-region</th>
+      <th>Population</th>
+      <th>Timezone</th>
+      <th>Continent</th>
+      <th>Flag</th>
+      <th>Actions</th>
+    </tr>
+  );
+
+  return (
+    <div className="table-container">
+      <h1>{title}</h1>
+      <table className="country-table">
+        <thead>{TH_HEADERS}</thead>
+        <tbody>
+          <tr key={country._id}>
+            <td>{country.countryName}</td>
+            <td>
+              <input
+                type="text"
+                name="capital"
+                value={editableFields.capital}
+                onChange={handleInputChange}
+              />
+              {errors.capital && <div className="error">{errors.capital}</div>}
+            </td>
+            <td>{country.region}</td>
+            <td>{country.subRegion}</td>
+            <td>
+              <input
+                type="number"
+                name="population"
+                value={editableFields.population}
+                onChange={handleInputChange}
+              />
+              {errors.population && (
+                <div className="error">{errors.population}</div>
+              )}
+            </td>
+            <td>{country.timezone}</td>
+            <td>{country.continent}</td>
+            <td>
+              <img src={country.flagUrl} alt={`${country.countryName} flag`} />
+            </td>
+            <td>
+              <button onClick={handleSave} disabled={!isValid}>
+                Save
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default CountryTable;

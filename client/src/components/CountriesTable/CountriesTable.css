@@ -1,0 +1,63 @@
+/* src/components/CountriesTable.css */
+
+.table-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.countries-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.countries-table th,
+.countries-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.countries-table th {
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.countries-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.countries-table tr:hover {
+  background-color: #ddd;
+}
+
+@media (max-width: 600px) {
+  .countries-table thead {
+    display: none;
+  }
+
+  .countries-table tr {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .countries-table td {
+    display: block;
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    padding-left: 50%;
+    white-space: pre-wrap;
+  }
+
+  .countries-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 10px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
