@@ -6,6 +6,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import "./Countries.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ICountry } from "../../common/interface/interface";
+import { renderPageNumbers } from "../../common/utils/pagination.utils";
 
 const ITEMS_PER_PAGE = 10; // Number of items per page
 const PAGE_NUMBERS_TO_DISPLAY = 10; // Number of page numbers to display at a time
@@ -48,65 +49,6 @@ const Countries: React.FC = () => {
     setCurrentPage(page);
   }, []);
 
-  const renderPageNumbers = useCallback(() => {
-    const startPage = Math.max(
-      1,
-      Math.min(
-        currentPage - Math.floor(PAGE_NUMBERS_TO_DISPLAY / 2),
-        totalPages - PAGE_NUMBERS_TO_DISPLAY + 1
-      )
-    );
-    const endPage = Math.min(
-      totalPages,
-      startPage + PAGE_NUMBERS_TO_DISPLAY - 1
-    );
-
-    const pageNumbers = [];
-    if (startPage > 1) {
-      pageNumbers.push(
-        <button
-          key={1}
-          onClick={() => handlePageChange(1)}
-          disabled={currentPage === 1}
-        >
-          1
-        </button>
-      );
-      if (startPage > 2) {
-        pageNumbers.push(<span key="ellipsis-start">...</span>);
-      }
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          disabled={i === currentPage}
-        >
-          {i}
-        </button>
-      );
-    }
-
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        pageNumbers.push(<span key="ellipsis-end">...</span>);
-      }
-      pageNumbers.push(
-        <button
-          key={totalPages}
-          onClick={() => handlePageChange(totalPages)}
-          disabled={currentPage === totalPages}
-        >
-          {totalPages}
-        </button>
-      );
-    }
-
-    return pageNumbers;
-  }, [currentPage, totalPages, handlePageChange]);
-
   const paginatedCountries = useMemo(
     () => getPaginatedCountries(currentPage),
     [getPaginatedCountries, currentPage]
@@ -134,7 +76,12 @@ const Countries: React.FC = () => {
         >
           Prev
         </button>
-        {renderPageNumbers()}
+        {renderPageNumbers({
+          currentPage,
+          totalPages,
+          handlePageChange,
+          pageNumbersToDisplay: PAGE_NUMBERS_TO_DISPLAY,
+        })}
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
