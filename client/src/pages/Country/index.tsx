@@ -17,7 +17,10 @@ const Country: React.FC = () => {
 
   const [errors, setErrors] = useState({ capital: "", population: "" });
   const [isValid, setIsValid] = useState(true);
-  const [editableFields, setEditableFields] = useState<Partial<ICountry>>({});
+  const [editableFields, setEditableFields] = useState<Partial<ICountry>>({
+    capital: "",
+    population: 0,
+  });
 
   useEffect(() => {
     if (country) {

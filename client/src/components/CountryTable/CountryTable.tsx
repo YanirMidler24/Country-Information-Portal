@@ -47,7 +47,7 @@ const CountryTable: React.FC<CountryTableProps> = ({
               <input
                 type="text"
                 name="capital"
-                value={editableFields.capital}
+                value={editableFields.capital || ""}
                 onChange={handleInputChange}
               />
               {errors.capital && <div className="error">{errors.capital}</div>}
@@ -58,7 +58,7 @@ const CountryTable: React.FC<CountryTableProps> = ({
               <input
                 type="number"
                 name="population"
-                value={editableFields.population}
+                value={editableFields.population || ""}
                 onChange={handleInputChange}
               />
               {errors.population && (

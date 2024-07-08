@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Put, Body, Param } from '@nestjs/common';
 import { CountriesService } from './countries.service';
 import { UpdateCountryDto } from './dto/update-country.dto';
 import { Country } from './schemas/country.schema';
@@ -8,10 +8,8 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { ApiKeyGuard } from '../common/guards/api-key.guard';
 
 @ApiTags('Country')
-@UseGuards(ApiKeyGuard)
 @Controller('countries')
 export class CountriesController {
   constructor(private readonly countriesService: CountriesService) {}
