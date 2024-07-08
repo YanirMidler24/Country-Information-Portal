@@ -11,7 +11,7 @@ import "./Countries.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ICountry } from "../../common/interface/interface";
 import { renderPageNumbers } from "../../common/utils/pagination.utils";
-import Pagination from "../../components/Patination/Pagination";
+import Pagination from "../../components/Pagination/Pagination";
 
 const Countries: React.FC = () => {
   const { countries, isLoading, error } = useCountries();
