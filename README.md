@@ -1,6 +1,6 @@
-## Server Installation
+# Server Installation
 
-# Install dependencies
+## Install dependencies
 
 $ npm install
 
@@ -11,16 +11,16 @@ Copy .env.example file to .env, fill all values that you need after
 run command:
 $ npm run start
 
-# watch mode
+watch mode
 
 $ npm run start:dev
 
 
 
 
-## Client Installation
+# Client Installation
 
-# Install dependencies
+## Install dependencies
 
 $ npm install
 
