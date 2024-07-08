@@ -18,10 +18,8 @@ const CountriesTable: React.FC<CountriesTableProps> = (
       <th>Name</th>
       <th>Capital</th>
       <th>Region</th>
-      <th>Subregion</th>
+      <th>Sub-region</th>
       <th>Population</th>
-      <th>Timezone</th>
-      <th>Continent</th>
       <th>Details</th>
     </tr>
   );
@@ -39,8 +37,6 @@ const CountriesTable: React.FC<CountriesTableProps> = (
               <td>{country.region}</td>
               <td>{country.subRegion}</td>
               <td>{country.population}</td>
-              <td>{country.timezone}</td>
-              <td>{country.continent}</td>
               <td>
                 <button onClick={() => handleDetailsClick(country)}>
                   Details

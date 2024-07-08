@@ -28,8 +28,6 @@ const CountryTable: React.FC<CountryTableProps> = ({
       <th>Region</th>
       <th>Sub-region</th>
       <th>Population</th>
-      <th>Timezone</th>
-      <th>Continent</th>
       <th>Flag</th>
       <th>Actions</th>
     </tr>
@@ -65,8 +63,6 @@ const CountryTable: React.FC<CountryTableProps> = ({
                 <div className="error">{errors.population}</div>
               )}
             </td>
-            <td>{country.timezone}</td>
-            <td>{country.continent}</td>
             <td>
               <img src={country.flagUrl} alt={`${country.countryName} flag`} />
             </td>

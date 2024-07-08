@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import useCountries from "../../hooks/useCountries";
 import { COUNTRIES_TABLE_TITLE } from "../../common/constants";
-import CountriesTable from "../../components/CountriesTable/CountryTable";
+import CountriesTable from "../../components/CountriesTable/CountriesTable";
 import Spinner from "../../components/Spinner/Spinner";
 import "./Countries.css";
 import { useNavigate, useSearchParams } from "react-router-dom";

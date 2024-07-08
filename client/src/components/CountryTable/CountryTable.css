@@ -29,6 +29,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .country-table tr:last-child td {
