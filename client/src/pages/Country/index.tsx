@@ -64,23 +64,31 @@ const Country: React.FC = () => {
     setIsValid(valid);
   };
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
+
+  if (!country) {
+    return <div>Country not found</div>;
+  }
+
   return (
-    <>
-      {isLoading && <Spinner />}
-      {error && <div className="error">{error}</div>}
-      {!isLoading && country && (
-        <CountryTable
-          title={COUNTRY_TABLE_TITLE}
-          country={country}
-          editableFields={editableFields}
-          handleInputChange={handleInputChange}
-          handleSave={handleSave}
-          errors={errors}
-          isValid={isValid}
-        />
-      )}
+    <div>
+      <CountryTable
+        title={COUNTRY_TABLE_TITLE}
+        country={country}
+        editableFields={editableFields}
+        handleInputChange={handleInputChange}
+        handleSave={handleSave}
+        errors={errors}
+        isValid={isValid}
+      />
       <Link to={`/?page=${page}`}>Back</Link>
-    </>
+    </div>
   );
 };
 
