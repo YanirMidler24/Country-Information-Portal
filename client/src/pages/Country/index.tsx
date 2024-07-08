@@ -47,7 +47,7 @@ const Country: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const formattedValue = name === "population" ? Number(value) : value;
+    const formattedValue = value;
     setEditableFields((prevFields) => ({
       ...prevFields,
       [name]: formattedValue,

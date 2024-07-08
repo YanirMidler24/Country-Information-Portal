@@ -14,10 +14,19 @@
   border-radius: 10px;
   overflow: hidden;
 }
-
+.onChangeError {
+  color: #d32f2f;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  position: absolute;
+  bottom: 7px;
+  white-space: nowrap;
+}
 .country-table th,
 .country-table td {
   padding: 15px;
+  position: relative;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
 }
@@ -90,6 +99,10 @@
 }
 
 @media (max-width: 600px) {
+  .onChangeError {
+    bottom: -3px;
+    right: 15px;
+  }
   .country-table {
     box-shadow: none;
   }

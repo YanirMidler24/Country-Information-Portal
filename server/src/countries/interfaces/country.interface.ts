@@ -1,4 +1,4 @@
-export interface Country {
+export interface ICountry {
   _id: string;
   name: string;
   capital: string;

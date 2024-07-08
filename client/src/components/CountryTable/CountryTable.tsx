@@ -32,7 +32,6 @@ const CountryTable: React.FC<CountryTableProps> = ({
       <th>Actions</th>
     </tr>
   );
-
   return (
     <div className="table-container">
       <h1>{title}</h1>
@@ -45,22 +44,24 @@ const CountryTable: React.FC<CountryTableProps> = ({
               <input
                 type="text"
                 name="capital"
-                value={editableFields.capital || ""}
+                value={editableFields.capital ?? ""}
                 onChange={handleInputChange}
               />
-              {errors.capital && <div className="error">{errors.capital}</div>}
+              {errors.capital && (
+                <div className="onChangeError">{errors.capital}</div>
+              )}
             </td>
             <td>{country.region}</td>
             <td>{country.subRegion}</td>
             <td>
               <input
-                type="number"
+                type="text"
                 name="population"
-                value={editableFields.population || ""}
+                value={editableFields.population ?? ""}
                 onChange={handleInputChange}
               />
               {errors.population && (
-                <div className="error">{errors.population}</div>
+                <div className="onChangeError">{errors.population}</div>
               )}
             </td>
             <td>

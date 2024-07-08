@@ -2,7 +2,6 @@ export const validateInput = (name: string, value: string | number) => {
   let error = "";
   let valid = true;
 
-  // Check if value is empty
   if (value === "" || value === null || value === undefined) {
     error = `${name.charAt(0).toUpperCase() + name.slice(1)} is required.`;
     valid = false;
