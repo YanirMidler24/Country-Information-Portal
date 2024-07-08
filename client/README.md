@@ -1,22 +1,16 @@
-## Installation:
+# Client Installation
 
-Install dependencies
+## Install dependencies
 
-```
-npm install
-```
+$ npm install
 
 or if you get errors
 
-```
-npm install --force
-```
+$ npm install --force
 
-## Local Dev
+## Running the app
 
 Copy .env.example file to .env, fill all values that you need after
-run command:
 
-```
-npm run dev
-```
+run command:
+$ npm run dev
