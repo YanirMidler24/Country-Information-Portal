@@ -32,6 +32,7 @@ const CountryTable: React.FC<CountryTableProps> = ({
       <th>Actions</th>
     </tr>
   );
+
   return (
     <div className="table-container">
       <h1>{title}</h1>

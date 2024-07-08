@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { COUNTRY_TABLE_TITLE } from "../../common/constants";
 import CountryTable from "../../components/CountryTable/CountryTable";
 import Spinner from "../../components/Spinner/Spinner";
@@ -45,24 +45,30 @@ const Country: React.FC = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const formattedValue = value;
-    setEditableFields((prevFields) => ({
-      ...prevFields,
-      [name]: formattedValue,
-    }));
-    handleValidation(name, formattedValue);
-  };
+  const handleValidation = useCallback(
+    (name: string, value: string | number) => {
+      const { error, valid } = validateInput(name, value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: error,
+      }));
+      setIsValid(valid);
+    },
+    []
+  );
 
-  const handleValidation = (name: string, value: string | number) => {
-    const { error, valid } = validateInput(name, value);
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: error,
-    }));
-    setIsValid(valid);
-  };
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      const formattedValue = value;
+      setEditableFields((prevFields) => ({
+        ...prevFields,
+        [name]: formattedValue,
+      }));
+      handleValidation(name, formattedValue);
+    },
+    [handleValidation]
+  );
 
   if (isLoading) {
     return <Spinner />;
