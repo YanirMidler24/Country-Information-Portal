@@ -14,7 +14,7 @@ const useCountry = (id: string) => {
         const country = await getCountryById(id);
         setCountry(country);
       } catch (error) {
-        setError("Failed to fetch country");
+        setError("לא נמצאה מדינה");
         console.error("Failed to fetch country:", error);
       } finally {
         setIsLoading(false);

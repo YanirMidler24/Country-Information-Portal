@@ -14,7 +14,7 @@ const useCountries = () => {
         const countries = await getAllCountries();
         setCountries(countries);
       } catch (error) {
-        setError("Failed to fetch countries");
+        setError("לא נמצאו מדינות");
         console.error("Failed to fetch countries:", error);
       } finally {
         setIsLoading(false);

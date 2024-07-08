@@ -17,7 +17,7 @@
 
 .countries-table th,
 .countries-table td {
-  padding: 15px;
+  padding: 10px;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
 }
@@ -31,7 +31,16 @@
   font-size: 14px;
   white-space: nowrap;
 }
-
+.countries-table button {
+  padding: 8px 15px;
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
 .countries-table tr:last-child td {
   border-bottom: none;
 }
