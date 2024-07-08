@@ -1,5 +1,7 @@
 # Server Installation
 
+cd ./server
+
 ## Install dependencies
 
 $ npm install
@@ -19,6 +21,8 @@ $ npm run start:dev
 
 
 # Client Installation
+
+cd ./client
 
 ## Install dependencies
 
