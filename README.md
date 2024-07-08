@@ -1,6 +1,6 @@
 ## Server Installation
 
-Install dependencies
+# Install dependencies
 
 $ npm install
 
