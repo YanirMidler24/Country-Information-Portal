@@ -1,9 +1,9 @@
-import { Country } from "../../common/interface/interface";
+import { ICountry } from "../../common/interface/interface";
 import axiosInstance from "../axios/axios.instance";
 
-export const getAllCountries = async (): Promise<Country[]> => {
+export const getAllCountries = async (): Promise<ICountry[]> => {
   try {
-    const response = await axiosInstance.get<Country[]>("/countries");
+    const response = await axiosInstance.get<ICountry[]>("/countries");
     return response.data;
   } catch (error) {
     console.error("Error fetching countries:", error);
@@ -11,9 +11,9 @@ export const getAllCountries = async (): Promise<Country[]> => {
   }
 };
 
-export const getCountryById = async (id: string): Promise<Country> => {
+export const getCountryById = async (id: string): Promise<ICountry> => {
   try {
-    const response = await axiosInstance.get<Country>(`/countries/${id}`);
+    const response = await axiosInstance.get<ICountry>(`/countries/${id}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching country with id ${id}:`, error);
@@ -23,10 +23,10 @@ export const getCountryById = async (id: string): Promise<Country> => {
 
 export const updateCountry = async (
   id: string,
-  updatedCountry: Partial<Country>
-): Promise<Country> => {
+  updatedCountry: Partial<ICountry>
+): Promise<ICountry> => {
   try {
-    const response = await axiosInstance.put<Country>(
+    const response = await axiosInstance.put<ICountry>(
       `/countries/${id}`,
       updatedCountry
     );
