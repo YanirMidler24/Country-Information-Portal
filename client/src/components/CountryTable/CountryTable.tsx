@@ -1,6 +1,7 @@
 import React from "react";
 import { ICountry } from "../../common/interface/interface";
 import "./CountryTable.css";
+import Button from "../Button/Button";
 
 interface CountryTableProps {
   country: ICountry;
@@ -73,9 +74,9 @@ const CountryTable: React.FC<CountryTableProps> = (
               <img src={country.flagUrl} alt={`${country.countryName} flag`} />
             </td>
             <td>
-              <button onClick={handleSave} disabled={!isValid}>
+              <Button onClick={handleSave} disabled={!isValid}>
                 Save
-              </button>
+              </Button>
             </td>
           </tr>
         </tbody>

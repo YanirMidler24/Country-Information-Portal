@@ -1,6 +1,7 @@
 import React from "react";
 import { ICountry } from "../../common/interface/interface";
 import "./CountriesTable.css";
+import Button from "../Button/Button";
 
 interface CountriesTableProps {
   countries: ICountry[];
@@ -38,9 +39,9 @@ const CountriesTable: React.FC<CountriesTableProps> = (
               <td>{country.subRegion}</td>
               <td>{country.population}</td>
               <td>
-                <button onClick={() => handleDetailsClick(country)}>
+                <Button onClick={() => handleDetailsClick(country)}>
                   Details
-                </button>
+                </Button>
               </td>
             </tr>
           ))}
