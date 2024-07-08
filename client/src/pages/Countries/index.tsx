@@ -11,6 +11,7 @@ import "./Countries.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ICountry } from "../../common/interface/interface";
 import { renderPageNumbers } from "../../common/utils/pagination.utils";
+import Pagination from "../../components/Patination/Pagination";
 
 const Countries: React.FC = () => {
   const { countries, isLoading, error } = useCountries();
@@ -55,6 +56,13 @@ const Countries: React.FC = () => {
     [getPaginatedCountries, currentPage]
   );
 
+  const pageNumbers = renderPageNumbers({
+    currentPage,
+    totalPages,
+    handlePageChange,
+    pageNumbersToDisplay: PAGE_NUMBERS_TO_DISPLAY,
+  });
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -70,26 +78,12 @@ const Countries: React.FC = () => {
         countries={paginatedCountries}
         handleDetailsClick={handleDetailsClick}
       />
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
-        {renderPageNumbers({
-          currentPage,
-          totalPages,
-          handlePageChange,
-          pageNumbersToDisplay: PAGE_NUMBERS_TO_DISPLAY,
-        })}
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        handlePageChange={handlePageChange}
+        pageNumbers={pageNumbers}
+      />
     </div>
   );
 };
