@@ -8,8 +8,8 @@ export const validateInput = (name: string, value: string | number) => {
     valid = false;
   } else {
     if (typeof value === "string" && name === "capital") {
-      if (!/^[a-zA-Z-/]+$/.test(value)) {
-        error = "Capital can only contain letters, dashes, and slashes.";
+      if (/\d/.test(value)) {
+        error = "Capital cannot contain numbers.";
         valid = false;
       }
     }
