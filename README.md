@@ -1,3 +1,12 @@
+# clone the reop using:
+
+git clone https://github.com/YanirMidler24/Country-Information-Portal
+
+cd to the main dir
+
+$ cd ./Country-Information-Portal
+
+
 # Server Installation
 
 cd ./server
