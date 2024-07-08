@@ -12,7 +12,11 @@ export class CountriesService {
   ) {}
 
   async findAll(): Promise<Country[]> {
-    return this.countryModel.find().sort({ countryName: 1 }).exec();
+    return this.countryModel
+      .find()
+      .collation({ locale: 'en', strength: 1 })
+      .sort({ countryName: 1 })
+      .exec();
   }
 
   async findOne(id: string): Promise<Country> {

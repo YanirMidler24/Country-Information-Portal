@@ -24,6 +24,9 @@
   transition: all 0.3s ease;
   color: #333;
   width: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination button:hover:not(:disabled) {
