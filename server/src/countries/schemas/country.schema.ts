@@ -19,7 +19,7 @@ export class Country {
   @Prop({ required: true, type: String, default: 'N/A' })
   subRegion: string;
 
-  @Prop({ required: true, type: Number, default: 'N/A' })
+  @Prop({ required: true, type: Number, default: 0 })
   population: number;
 
   @Prop({ required: true, type: String, default: 'N/A' })
