@@ -1,25 +1,59 @@
 .error {
-  color: red;
+  color: #d32f2f;
   text-align: center;
   margin-top: 20px;
-  font-size: 14px;
+  font-size: 16px;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 4px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  margin-top: 30px;
+  font-family: Arial, sans-serif;
 }
 
 .pagination button {
   margin: 0 5px;
-  padding: 10px;
+  padding: 10px 15px;
   border: none;
   background-color: #f0f0f0;
   cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .pagination button:disabled {
-  background-color: #ccc;
+  background-color: #e0e0e0;
+  color: #999;
   cursor: not-allowed;
+}
+
+.pagination .current-page {
+  margin: 0 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .pagination {
+    flex-wrap: wrap;
+  }
+
+  .pagination button {
+    margin: 5px;
+  }
 }
