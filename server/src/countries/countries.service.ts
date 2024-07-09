@@ -25,10 +25,13 @@ export class CountriesService {
         .collation({ locale: 'en', strength: 1 })
         .sort({ countryName: 1 })
         .exec();
+
       this.logger.log('Fetching all countries');
+
       return countries;
     } catch (error) {
       this.logger.error('Failed to fetch all countries', { error });
+
       throw new InternalServerErrorException('Failed to fetch all countries');
     }
   }
@@ -36,17 +39,22 @@ export class CountriesService {
   async findOne(id: string): Promise<Country> {
     try {
       const country = await this.countryModel.findById(id).exec();
+
       if (!country) {
         this.logger.warn(`Country with id ${id} not found`);
         throw new NotFoundException(`Country with id ${id} not found`);
       }
+
       this.logger.log(`Fetching country with id: ${id}`);
+
       return country;
     } catch (error) {
       this.logger.error(`Failed to fetch country with id: ${id}`, { error });
+
       if (error instanceof NotFoundException) {
         throw error;
       }
+
       throw new InternalServerErrorException('Failed to fetch country');
     }
   }
@@ -59,17 +67,22 @@ export class CountriesService {
       const updatedCountry = await this.countryModel
         .findByIdAndUpdate(id, updateCountryDto, { new: true })
         .exec();
+
       if (!updatedCountry) {
         this.logger.warn(`Country with id ${id} not found`);
         throw new NotFoundException(`Country with id ${id} not found`);
       }
+
       this.logger.log(`Updating country with id: ${id}`);
+
       return updatedCountry;
     } catch (error) {
       this.logger.error(`Failed to update country with id: ${id}`, { error });
+
       if (error instanceof NotFoundException) {
         throw error;
       }
+
       throw new InternalServerErrorException('Failed to update country');
     }
   }
